@@ -17,9 +17,9 @@ function Login() {
   const onChangePw = (e) => setPw(e.target.value);
   const onChangeNickname = (e) => setNickname(e.target.value);
 
-  const clickMemberShipHandler = async (e) => {
+  const clickLoginHandler = async (e) => {
     e.preventDefault();
-    if (loginSwitch) {
+    try {
       const user = {
         id,
         password: pw,
@@ -30,7 +30,15 @@ function Login() {
       );
       console.log(reponse.data);
       dispatch(login(reponse.data));
-    } else {
+      navigate("/");
+    } catch {
+      alert("존재하지 않는 계정입니다.");
+    }
+  };
+
+  const clickMemberShipHandler = async (e) => {
+    e.preventDefault();
+    try {
       const newUser = {
         id: id,
         password: pw,
@@ -40,55 +48,109 @@ function Login() {
         `${process.env.REACT_APP_API_URL}/register`,
         newUser
       );
-      console.log(respones);
+      console.log(respones.data);
+    } catch {
+      alert("이미 가입된 계정입니다.");
     }
   };
 
   return (
-    <StLoginBox>
-      <form onSubmit={clickMemberShipHandler}>
-        <h2>{loginSwitch ? "로그인" : "회원가입"}</h2>
-        <StInput>
-          <input
-            type="text"
-            placeholder="ID (4~10글자)"
-            value={id}
-            onChange={onChangeId}
-          />
-        </StInput>
-        <StInput>
-          <input
-            type="password"
-            placeholder="PW (4~15글자)"
-            value={pw}
-            onChange={onChangePw}
-          />
-        </StInput>
-        {!loginSwitch && (
-          <StInput>
-            <input
-              type="text"
-              placeholder="NAME (4~10글자)"
-              value={nickname}
-              onChange={onChangeNickname}
-            />
-          </StInput>
-        )}
-        <StLoginBtnBox>
-          <button type="submit">{loginSwitch ? "로그인" : "가입하기"}</button>
-        </StLoginBtnBox>
-        <div>
-          <StSwitchBtn
-            type="button"
-            onClick={() => {
-              setLoginSwitch((b) => !b);
-            }}
-          >
-            {loginSwitch ? "회원가입하기" : "로그인하기"}
-          </StSwitchBtn>
-        </div>
-      </form>
-    </StLoginBox>
+    <>
+      {loginSwitch ? (
+        <StLoginBox>
+          <form onSubmit={clickLoginHandler}>
+            <h2>로그인</h2>
+            <StInput>
+              <input
+                type="text"
+                placeholder="ID (4~10글자)"
+                required
+                maxLength={10}
+                minLength={4}
+                value={id}
+                onChange={onChangeId}
+              />
+            </StInput>
+            <StInput>
+              <input
+                type="password"
+                placeholder="PW (4~15글자)"
+                required
+                maxLength={15}
+                minLength={4}
+                value={pw}
+                onChange={onChangePw}
+              />
+            </StInput>
+            <StLoginBtnBox>
+              <button type="submit">로그인</button>
+            </StLoginBtnBox>
+            <div>
+              <StSwitchBtn
+                type="button"
+                onClick={() => {
+                  setLoginSwitch((b) => !b);
+                }}
+              >
+                회원가입하기
+              </StSwitchBtn>
+            </div>
+          </form>
+        </StLoginBox>
+      ) : (
+        <StLoginBox>
+          <form onSubmit={clickMemberShipHandler}>
+            <h2>로그인</h2>
+            <StInput>
+              <input
+                type="text"
+                placeholder="ID (4~10글자)"
+                required
+                maxLength={10}
+                minLength={4}
+                value={id}
+                onChange={onChangeId}
+              />
+            </StInput>
+            <StInput>
+              <input
+                type="password"
+                placeholder="PW (4~15글자)"
+                required
+                maxLength={15}
+                minLength={4}
+                value={pw}
+                onChange={onChangePw}
+              />
+            </StInput>
+            <StInput>
+              <input
+                type="text"
+                placeholder="NAME (1~10글자)"
+                required
+                maxLength={10}
+                minLength={1}
+                value={nickname}
+                onChange={onChangeNickname}
+              />
+            </StInput>
+            <StLoginBtnBox>
+              <button type="submit">로그인</button>
+            </StLoginBtnBox>
+            <div>
+              <StSwitchBtn
+                type="button"
+                onClick={() => {
+                  setLoginSwitch((b) => !b);
+                }}
+              >
+                회원가입하기
+              </StSwitchBtn>
+            </div>
+          </form>
+        </StLoginBox>
+      )}
+    </>
   );
 }
 

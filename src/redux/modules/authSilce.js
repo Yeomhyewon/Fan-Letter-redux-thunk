@@ -1,7 +1,7 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
-  isLogin: !localStorage.getItem("accessToken"),
+  isLogin: localStorage.getItem("accessToken"),
   userId: localStorage.getItem("userId"),
   avatar: localStorage.getItem("avatar"),
   nickname: localStorage.getItem("nickname"),

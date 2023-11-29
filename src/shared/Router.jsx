@@ -8,10 +8,7 @@ import Layout from "components/Layout/Layout";
 import { useSelector } from "react-redux";
 
 function Router() {
-  const isLogin = useSelector((state) => {
-    console.log(state.auth.isLogin);
-    return state.auth.isLogin;
-  });
+  const isLogin = useSelector((state) => state.auth.isLogin);
   return (
     <BrowserRouter>
       <Routes>
