@@ -1,32 +1,93 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { login } from "redux/modules/authSilce";
 import styled from "styled-components";
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [loginSwitch, setLoginSwitch] = useState(true);
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [nickname, setNickname] = useState("");
+
+  const onChangeId = (e) => setId(e.target.value);
+  const onChangePw = (e) => setPw(e.target.value);
+  const onChangeNickname = (e) => setNickname(e.target.value);
+
+  const clickMemberShipHandler = async (e) => {
+    e.preventDefault();
+    if (loginSwitch) {
+      const user = {
+        id,
+        password: pw,
+      };
+      const reponse = await axios.post(
+        `${process.env.REACT_APP_API_URL}/login`,
+        user
+      );
+      console.log(reponse.data);
+      dispatch(login(reponse.data));
+    } else {
+      const newUser = {
+        id: id,
+        password: pw,
+        nickname,
+      };
+      const respones = await axios.post(
+        `${process.env.REACT_APP_API_URL}/register`,
+        newUser
+      );
+      console.log(respones);
+    }
+  };
+
   return (
     <StLoginBox>
-      <div>
-        <h2>로그인</h2>
+      <form onSubmit={clickMemberShipHandler}>
+        <h2>{loginSwitch ? "로그인" : "회원가입"}</h2>
         <StInput>
-          <input type="text" placeholder="ID (4~10글자)" />
+          <input
+            type="text"
+            placeholder="ID (4~10글자)"
+            value={id}
+            onChange={onChangeId}
+          />
         </StInput>
         <StInput>
-          <input type="password" placeholder="PW (4~15글자)" />
+          <input
+            type="password"
+            placeholder="PW (4~15글자)"
+            value={pw}
+            onChange={onChangePw}
+          />
         </StInput>
-        <StBtnBox>
-          <button
+        {!loginSwitch && (
+          <StInput>
+            <input
+              type="text"
+              placeholder="NAME (4~10글자)"
+              value={nickname}
+              onChange={onChangeNickname}
+            />
+          </StInput>
+        )}
+        <StLoginBtnBox>
+          <button type="submit">{loginSwitch ? "로그인" : "가입하기"}</button>
+        </StLoginBtnBox>
+        <div>
+          <StSwitchBtn
+            type="button"
             onClick={() => {
-              navigate("/");
+              setLoginSwitch((b) => !b);
             }}
           >
-            로그인
-          </button>
-        </StBtnBox>
-        <StBtnBox>
-          <button>회원가입</button>
-        </StBtnBox>
-      </div>
+            {loginSwitch ? "회원가입하기" : "로그인하기"}
+          </StSwitchBtn>
+        </div>
+      </form>
     </StLoginBox>
   );
 }
@@ -37,7 +98,7 @@ const StLoginBox = styled.div`
   align-items: center;
   height: 100vh;
 
-  & > div {
+  & > form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,7 +127,7 @@ const StInput = styled.div`
   }
 `;
 
-const StBtnBox = styled.div`
+const StLoginBtnBox = styled.div`
   display: flex;
   justify-content: center;
   width: 60%;
@@ -78,6 +139,13 @@ const StBtnBox = styled.div`
     background-color: #d8b4f8d3;
     cursor: pointer;
   }
+`;
+
+const StSwitchBtn = styled.button`
+  text-decoration: underline;
+  color: #0000008b;
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 export default Login;

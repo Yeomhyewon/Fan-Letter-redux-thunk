@@ -16,7 +16,7 @@ const Main = () => {
   //context
 
   // 색별로 나눔
-  const mumberColor = [
+  const memberColor = [
     "#B4E4FF",
     "#435585",
     "#FF8080",
@@ -25,7 +25,7 @@ const Main = () => {
     "#FFCECE",
   ];
 
-  const getMumberName = (color) => {
+  const getMemberName = (color) => {
     switch (color) {
       case "#B4E4FF":
         return "효정";
@@ -115,9 +115,9 @@ const Main = () => {
 
   // 클릭 시 색 바뀌게, 멤버별 펜레터만 보이게
   const clickMColorChange = (color) => {
-    setSelectMember(getMumberName(color));
+    setSelectMember(getMemberName(color));
     const newletter = letter.filter((letter) => {
-      return letter.writedTo === getMumberName(color);
+      return letter.writedTo === getMemberName(color);
     });
     setfilterLetter(newletter);
     setNavColor(color);
@@ -130,7 +130,7 @@ const Main = () => {
       </StDiv>
       <nav>
         <StDiv $justify="space-evenly" $margin="20px">
-          {mumberColor.map((color) => {
+          {memberColor.map((color) => {
             return (
               <StList
                 $bordercolor={color}
@@ -141,7 +141,7 @@ const Main = () => {
                 color={`${navColor === color ? "white" : ""}`}
                 $bgcolor={`${navColor === color ? color : ""}`}
               >
-                {getMumberName(color)}
+                {getMemberName(color)}
               </StList>
             );
           })}

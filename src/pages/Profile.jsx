@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function MyPage() {
+function Profile() {
   return (
     <StDiv>
       <div>
@@ -44,4 +44,4 @@ const StDiv = styled.div`
   }
 `;
 
-export default MyPage;
+export default Profile;
