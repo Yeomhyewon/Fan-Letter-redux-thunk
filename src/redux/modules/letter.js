@@ -1,74 +1,152 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import axios from "axios";
 
-const initialState = [
-  {
-    createdAt: "2023년 11월 03일 02:07:09",
-    userNickname: "Dr. Clint Christiansen",
-    avatar: "/assets/img/Avatar.png",
-    content:
-      "승희1 Vitae recusandae tenetur debitis impedit ut dolorem atque reprehenderit magnam. Cum dolor magnam commodi qui perferendis. Vel temporibus soluta. Eum delectus blanditiis. Neque dicta non quod ex. Maiores aspernatur fuga reprehenderit a magni eaque fuga voluptatum hic.",
-    writedTo: "승희",
-    id: "1",
-  },
-  {
-    createdAt: "2023년 11월 02일 23:13:18",
-    userNickname: "Chad Graham",
-    avatar: "/assets/img/Avatar.png",
-    content:
-      "유아 1 Ipsam aspernatur nostrum eos unde velit molestiae dolorem. Tenetur ullam nostrum pariatur. Et in eos. Harum commodi ipsa quaerat aspernatur quod dignissimos quae quidem sapiente.",
-    writedTo: "유아",
-    id: "2",
-  },
-  {
-    createdAt: "2023년 11월 02일 11:25:37",
-    userNickname: "Tommy Abshire",
-    avatar: "/assets/img/Avatar.png",
-    content:
-      "효정1 Itaque nihil quae neque itaque. Non a officiis ducimus nemo consectetur. Ducimus libero voluptatum consequuntur.",
-    writedTo: "효정",
-    id: "3",
-  },
-  {
-    createdAt: "2023년 11월 02일 16:06:34",
-    userNickname: "Max Mayert",
-    avatar: "/assets/img/Avatar.png",
-    content:
-      "미미1 Sint qui eligendi repudiandae placeat maiores repudiandae assumenda repudiandae. Distinctio commodi iste. Qui architecto iusto.",
-    writedTo: "미미",
-    id: "4",
-  },
-  {
-    createdAt: "2023년 11월 03일 05:40:17",
-    userNickname: "Olga Christiansen",
-    avatar: "/assets/img/Avatar.png",
-    content:
-      "2 Molestiae saepe reiciendis saepe natus quo occaecati. Vel vero illum quo. Ducimus maiores porro optio illum officia nam. Cum possimus aut consequatur eaque libero ad nihil pariatur officiis.",
-    writedTo: "아린",
-    id: "5",
-  },
-];
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+
+const initialState = {
+  letters: [],
+  isLoding: false,
+  error: null,
+  isError: false,
+};
+
+export const __getLetters = createAsyncThunk(
+  "getLetters",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/letters?_sort=createdAt&_order=desc`
+      );
+      console.log("response", response.data);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      console.log("error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __addLetter = createAsyncThunk(
+  "addLetter",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/letters`,
+        payload
+      );
+      console.log("response", response);
+      thunkAPI.dispatch(__getLetters());
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      console.log("error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __deleteLetter = createAsyncThunk(
+  "deleteLetter",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/letters/${payload}`
+      );
+      thunkAPI.dispatch(__getLetters());
+      console.log("response", response.data);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      console.log("error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __editLetter = createAsyncThunk(
+  "editLetter",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_SERVER_URL}/letters/${payload.id}`,
+        { content: payload.letter }
+      );
+      console.log("response", response.data);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      console.log("error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const letterSlice = createSlice({
   name: "letter",
   initialState,
-  reducers: {
-    addLetter: (state, action) => {
-      return [...state, action.payload];
+  reducers: {},
+  extraReducers: {
+    [__getLetters.pending]: (state, action) => {
+      state.isLoding = true;
+      state.isError = false;
     },
-    deleteLetter: (state, action) => {
-      return state.filter((L) => {
-        return L.id !== action.payload;
-      });
+    [__getLetters.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.isError = false;
+      state.letters = action.payload;
     },
-    editLetter: (state, action) => {
-      return state.map((L) => {
-        return L.id === action.payload.id
-          ? { ...L, content: action.payload.content }
-          : L;
+    [__getLetters.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+    [__addLetter.pending]: (state) => {
+      state.isLoding = true;
+      state.isError = false;
+    },
+    [__addLetter.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.isError = false;
+      state.letters.push(action.payload);
+    },
+    [__addLetter.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+    [__deleteLetter.pending]: (state, action) => {
+      state.isLoding = true;
+      state.isError = false;
+    },
+    [__deleteLetter.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.isError = false;
+    },
+    [__deleteLetter.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+    [__editLetter.pending]: (state, action) => {
+      state.isLoding = true;
+      state.isError = false;
+    },
+    [__editLetter.fulfilled]: (state, action) => {
+      const filterLetter = state.letters.findIndex((i) => {
+        return i.id === action.payload.id;
       });
+
+      state.letters.splice(filterLetter, 1, action.payload);
+      state.isLoding = false;
+      state.isError = false;
+    },
+    [__editLetter.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.isError = true;
+      state.error = action.payload;
     },
   },
 });
 
-export const { addLetter, deleteLetter, editLetter } = letterSlice.actions;
+export const { addLetter, deleteLetter, editLetter, setLetter } =
+  letterSlice.actions;
 export default letterSlice.reducer;

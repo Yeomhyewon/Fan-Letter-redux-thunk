@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-function Button({ eventHandler, $btn, children, $margin }) {
+function Button({ eventHandler, children, $margin }) {
   return (
-    <StBtn $btn={$btn} $margin={$margin} onClick={eventHandler}>
+    <StBtn $margin={$margin} onClick={eventHandler}>
       {children}
     </StBtn>
   );
@@ -14,16 +14,16 @@ const StBtn = styled.button`
   margin: ${(props) => props.$margin};
   border: none;
   border-radius: 10px;
-
-  background-color: ${(props) => props.$btn};
+  border-bottom: 4px solid #5473797d;
+  background: linear-gradient(315deg, #eee29f76, #9adbe87e, #f4a6d77a);
 
   font-size: large;
-  font-family: "omyu_pretty";
   cursor: pointer;
-  transition: all 0.6s;
-  &:hover {
-    background-color: ${(props) => props.$btn};
-    box-shadow: 0px 0px 6px 6px ${(props) => props.$btn};
+  transition: all 0.1s;
+
+  &:active {
+    transform: translateY(3px);
+    border-bottom: 2px solid #5473797d;
   }
 `;
 

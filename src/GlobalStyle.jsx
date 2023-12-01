@@ -8,6 +8,12 @@ const GlobalStyles = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'TAEBAEKmilkyway';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/TAEBAEKmilkyway.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -34,11 +40,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  height: 100vh;
-  background-image: url(/assets/img/color.png);
-  background-position: center;
-  background-size: cover;
-	font-family: 'omyu_pretty';
+  background: linear-gradient(315deg,  #eee29f76,#9adbe87e, #f4a6d77a);
+	font-family: 'TAEBAEKmilkyway';
+	font-weight: bold;
 }
 ol, ul, li {
 	list-style: none;
@@ -66,7 +70,8 @@ input, button, textarea{
 } 
 * { 
     box-sizing: border-box;
-		font-family: 'omyu_pretty';
+		font-family: 'TAEBAEKmilkyway';
+		font-weight: bold;
 }
 `;
 

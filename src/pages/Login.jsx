@@ -28,10 +28,11 @@ function Login() {
         `${process.env.REACT_APP_API_URL}/login`,
         user
       );
-      console.log(reponse.data);
+      alert("로그인 되었습니다.");
       dispatch(login(reponse.data));
       navigate("/");
-    } catch {
+    } catch (error) {
+      console.log(error);
       alert("존재하지 않는 계정입니다.");
     }
   };
@@ -48,8 +49,11 @@ function Login() {
         `${process.env.REACT_APP_API_URL}/register`,
         newUser
       );
+      alert("가입되었습니다!😀");
+      setLoginSwitch(true);
       console.log(respones.data);
-    } catch {
+    } catch (error) {
+      console.log(error);
       alert("이미 가입된 계정입니다.");
     }
   };
@@ -89,7 +93,11 @@ function Login() {
               <StSwitchBtn
                 type="button"
                 onClick={() => {
-                  setLoginSwitch((b) => !b);
+                  setLoginSwitch((state) => {
+                    setId("");
+                    setPw("");
+                    return !state;
+                  });
                 }}
               >
                 회원가입하기
@@ -100,7 +108,7 @@ function Login() {
       ) : (
         <StLoginBox>
           <form onSubmit={clickMemberShipHandler}>
-            <h2>로그인</h2>
+            <h2>회원가입</h2>
             <StInput>
               <input
                 type="text"
@@ -135,16 +143,16 @@ function Login() {
               />
             </StInput>
             <StLoginBtnBox>
-              <button type="submit">로그인</button>
+              <button type="submit">회원가입하기</button>
             </StLoginBtnBox>
             <div>
               <StSwitchBtn
                 type="button"
                 onClick={() => {
-                  setLoginSwitch((b) => !b);
+                  setLoginSwitch((state) => !state);
                 }}
               >
-                회원가입하기
+                로그인하기
               </StSwitchBtn>
             </div>
           </form>
@@ -174,6 +182,8 @@ const StLoginBox = styled.div`
 
     & > h2 {
       text-align: center;
+      font-size: xx-large;
+      font-weight: bold;
     }
   }
 `;

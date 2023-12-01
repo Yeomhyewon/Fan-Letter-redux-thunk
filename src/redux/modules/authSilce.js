@@ -1,10 +1,11 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
-  isLogin: localStorage.getItem("accessToken"),
+  isLogin: !!localStorage.getItem("accessToken"),
   userId: localStorage.getItem("userId"),
   avatar: localStorage.getItem("avatar"),
   nickname: localStorage.getItem("nickname"),
+  accessToken: localStorage.getItem("accessToken"),
 };
 
 const authSilce = createSlice({
@@ -12,6 +13,8 @@ const authSilce = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
+      console.log(action.payload);
+
       localStorage.setItem("accessToken", action.payload.accessToken);
       localStorage.setItem("userId", action.payload.userId);
       localStorage.setItem("avatar", action.payload.avatar);
@@ -20,12 +23,22 @@ const authSilce = createSlice({
       state.avatar = action.payload.avatar;
       state.userId = action.payload.userId;
       state.nickname = action.payload.nickname;
-      state.isLogin = action.payload.success;
+      state.isLogin = true;
+      state.accessToken = action.payload.accessToken;
     },
-    logout: (state, action) => {},
-    changeProfile: (state, action) => {},
+    logout: (state) => {
+      window.localStorage.clear();
+      state.isLogin = false;
+    },
+    editedProfile: (state, action) => {
+      localStorage.setItem("avatar", action.payload.avatar);
+      localStorage.setItem("nickname", action.payload.nickname);
+
+      state.avatar = action.payload.avatar;
+      state.nickname = action.payload.nickname;
+    },
   },
 });
 
-export const { login, logout, changeProfile } = authSilce.actions;
+export const { login, logout, editedProfile } = authSilce.actions;
 export default authSilce.reducer;

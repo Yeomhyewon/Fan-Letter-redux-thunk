@@ -1,16 +1,18 @@
 import React from "react";
 import Button from "./Button";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 function Form({
   $btn,
-  userNickname,
   content,
   clickNewLetterHandler,
   onChangeContent,
   onChangeMember,
-  onChangeNickname,
 }) {
+  const auth = useSelector((state) => state.auth);
+  const nickname = auth.nickname;
+
   // 닉네임, 내용, 멤버
   const members = ["효정", "미미", "유아", "승희", "유빈", "아린"];
   return (
@@ -19,12 +21,7 @@ function Form({
         <div>
           <div>
             <p>닉네임</p>
-            <NicknameContent
-              placeholder="최대 8자까지 적을 수 있습니다."
-              type="text"
-              value={userNickname}
-              onChange={onChangeNickname}
-            />
+            <NicknameContent>{nickname}</NicknameContent>
           </div>
           <div>
             <p>내용</p>
@@ -74,9 +71,10 @@ const StDiv = styled.div`
   transition: all 0.6s;
 `;
 
-const NicknameContent = styled.input`
+const NicknameContent = styled.div`
   width: 100%;
   padding: 5px;
+  margin: 10px 0px 15px 0px;
   border-radius: 10px;
   margin-bottom: 5px;
   background-color: #b4e4ff;
@@ -85,6 +83,7 @@ const Content = styled.textarea`
   width: 100%;
   height: 80px;
   border-radius: 10px;
+  margin-top: 10px;
   margin-bottom: 5px;
   background-color: #b4e4ff;
   padding: 5px;

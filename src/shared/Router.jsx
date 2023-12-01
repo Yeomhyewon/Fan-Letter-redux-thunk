@@ -1,6 +1,6 @@
 import React from "react";
 import Detail from "pages/Detail";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Main from "pages/Main";
 import Login from "pages/Login";
 import Profile from "pages/Profile";
@@ -11,17 +11,22 @@ function Router() {
   const isLogin = useSelector((state) => state.auth.isLogin);
   return (
     <BrowserRouter>
-      <Routes>
-        {!isLogin ? (
-          <Route path="/login" element={<Login />} />
-        ) : (
+      {isLogin ? (
+        <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Main />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
-        )}
-      </Routes>
+        </Routes>
+      ) : (
+        <>
+          <Navigate replace to={"/login"} />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </>
+      )}
     </BrowserRouter>
   );
 }
