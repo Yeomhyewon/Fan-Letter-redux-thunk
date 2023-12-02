@@ -1,7 +1,15 @@
 import React from "react";
-import Button from "./Button";
+import Button from "../Button/Button";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import {
+  Content,
+  FlexBtn,
+  NicknameContent,
+  StDiv,
+  Stselect,
+  StyledForm,
+} from "./styles";
 
 function Form({
   $btn,
@@ -54,53 +62,5 @@ function Form({
     </StyledForm>
   );
 }
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 8px;
-  font-size: larger;
-`;
-
-const StDiv = styled.div`
-  border: 3px solid ${(props) => props.$borderColor};
-  border-radius: 10px;
-  padding: 20px;
-
-  transition: all 0.6s;
-`;
-
-const NicknameContent = styled.div`
-  width: 100%;
-  padding: 5px;
-  margin: 10px 0px 15px 0px;
-  border-radius: 10px;
-  margin-bottom: 5px;
-  background-color: #b4e4ff;
-`;
-const Content = styled.textarea`
-  width: 100%;
-  height: 80px;
-  border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 5px;
-  background-color: #b4e4ff;
-  padding: 5px;
-  resize: none;
-`;
-
-const Stselect = styled.select`
-  border: none;
-  border-radius: 10px;
-  margin-left: 5px;
-`;
-
-const FlexBtn = styled.div`
-  display: flex;
-  justify-content: center;
-
-  margin-top: 10px;
-`;
 
 export default Form;

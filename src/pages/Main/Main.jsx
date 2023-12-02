@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Form from "components/Form";
-import Letters from "components/Letters";
+import Form from "components/Form/Form";
+import Letters from "components/Letters/Letters";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { __addLetter } from "redux/modules/letter";
 import axios from "axios";
 import { logout } from "redux/modules/authSilce";
+import { LetterNone, StDiv, StImg, StList } from "./styles";
 
 // 색별로 나눔
 const memberColor = [
@@ -108,7 +108,6 @@ const Main = () => {
       alert("등록되었습니다😁");
       setContent("");
       dispatch(__addLetter(newLetter));
-      // dispatch(addLetter(newLetter));
     } catch (error) {
       alert("토큰이 만료되었습니다. 잠시 후에 로그아웃됩니다.");
       dispatch(logout());
@@ -175,8 +174,7 @@ const Main = () => {
             주인공이 되어주세요!
           </LetterNone>
         ) : (
-          filterLetter?.map((letter, index) => {
-            // console.log(filterLetter);
+          filterLetter?.map((letter) => {
             return (
               <Letters
                 navColor={navColor}
@@ -197,38 +195,4 @@ const Main = () => {
   );
 };
 
-const StImg = styled.img`
-  width: 120px;
-`;
-
-const StDiv = styled.div`
-  display: flex;
-  justify-content: ${(props) => props.$justify};
-  margin: ${(props) => props.$margin};
-  padding: 15px;
-  list-style: none;
-`;
-
-const StList = styled.li`
-  padding: 10px 25px;
-  border: 1px solid ${(props) => props.$bordercolor};
-  border-radius: 10px;
-  cursor: pointer;
-  color: ${(props) => props.color};
-  background-color: ${(props) => props.$bgcolor};
-
-  transition: all 0.4s;
-
-  &:hover {
-    background-color: ${(props) => props.$bordercolor};
-    color: white;
-  }
-`;
-
-const LetterNone = styled.div`
-  text-align: center;
-  font-size: x-large;
-  margin-top: 100px;
-  height: 24.5vh;
-`;
 export default Main;

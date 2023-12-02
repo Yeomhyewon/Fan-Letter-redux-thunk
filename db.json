@@ -1,66 +1,57 @@
 {
   "letters": [
     {
-      "createdAt": "2023-12-01T15:16:12.182Z",
-      "nickname": "멋진르탄",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/62d91b9d-694c-4ec1-b996-e0cd5233d66f.jpg",
-      "content": "aaa",
+      "createdAt": "2023-12-02T00:10:59.120Z",
+      "nickname": "되면 좋겠당당",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/c625ab42-0088-499e-8ef5-f57414d48c5c.jpg",
+      "content": "으으으ㅡ",
       "writedTo": "효정",
-      "id": "fb3551e1-7689-4cab-a639-17efddde6519",
-      "userId": "dkshk"
-    },
-    {
-      "createdAt": "2023-12-01T15:17:12.183Z",
-      "nickname": "안녕하세요?",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/483457a1-e8cc-4560-aec6-a40e76a02ff8.jpg",
-      "content": "안녕하세요",
-      "writedTo": "미미",
-      "id": "16a8b4f9-4754-420d-8a21-e6386140f5f2",
+      "id": "7b07d256-a273-4861-9866-d5359ccf3f6f",
       "userId": "dkssudgksr"
     },
     {
-      "createdAt": "2023-12-01T15:18:41.444Z",
-      "nickname": "12345",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/92fc9bdc-0237-4843-b5e0-6099481c10f3.jpg",
-      "content": "되는건가 수정까지ㅁ",
-      "writedTo": "유아",
-      "id": "dc00e86e-f010-4313-9652-608371e40d1c",
-      "userId": "12345"
-    },
-    {
-      "createdAt": "2023-12-01T15:20:32.401Z",
-      "nickname": "12345",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/92fc9bdc-0237-4843-b5e0-6099481c10f3.jpg",
-      "content": "만들어왑",
-      "writedTo": "유빈",
-      "id": "54f4f13c-c282-41fb-b96b-ccb2e1965c25",
-      "userId": "12345"
-    },
-    {
-      "createdAt": "2023-12-01T15:29:13.640Z",
-      "nickname": "이름을 바꾸면?",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/0e341d14-c12a-4fac-ae1e-78992faff50a.jpg",
-      "content": "뭐야",
+      "createdAt": "2023-12-02T07:52:03.640Z",
+      "nickname": "삼의맹세aaa",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
+      "content": "아하 이름이 다르군?",
       "writedTo": "효정",
-      "id": "de6b4cd7-fa1c-42ee-a3a2-9bb212ca07e2",
-      "userId": "12345"
-    },
-    {
-      "createdAt": "2023-12-01T15:31:56.801Z",
-      "nickname": "멋진르탄",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/62d91b9d-694c-4ec1-b996-e0cd5233d66f.jpg",
-      "content": "aa",
-      "writedTo": "효정",
-      "id": "6e833be0-e4ca-4920-97eb-4e987651acc2",
+      "id": "1860e779-d0b8-4084-9ad0-db625ae799ae",
       "userId": "dkshk"
     },
     {
-      "createdAt": "2023-12-01T15:34:01.747Z",
-      "nickname": "멋진르탄",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/62d91b9d-694c-4ec1-b996-e0cd5233d66f.jpg",
-      "content": "aaaaaaaaaaaa",
+      "createdAt": "2023-12-02T09:39:37.441Z",
+      "nickname": "뭐야 왜 안돼..!",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-01/b56cea32-1abd-4209-91ff-90e21720a279.jpg",
+      "content": "다른 아이디였군앙!",
+      "writedTo": "미미",
+      "id": "7bef8550-7661-413f-94bf-c6ac1681aa48",
+      "userId": "12345"
+    },
+    {
+      "createdAt": "2023-12-02T09:45:46.913Z",
+      "nickname": "삼의맹세aaa",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
+      "content": "사진 나와라",
       "writedTo": "효정",
-      "id": "9e8425f9-244d-41d9-b289-2011cfb29b3c",
+      "id": "ff43113f-5982-4984-8081-7e60d0b87923",
+      "userId": "dkshk"
+    },
+    {
+      "createdAt": "2023-12-02T12:50:00.781Z",
+      "nickname": "삼의맹세aaa",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
+      "content": "댓글 달면 사진 남아있삼",
+      "writedTo": "효정",
+      "id": "45f51708-d18c-48b9-8576-fd7582a069c8",
+      "userId": "dkshk"
+    },
+    {
+      "createdAt": "2023-12-02T16:08:23.528Z",
+      "nickname": "삼의맹세aaa",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
+      "content": "안녕하세요",
+      "writedTo": "효정",
+      "id": "a5cb2d7f-dacc-4229-ad0f-3da329402584",
       "userId": "dkshk"
     }
   ]

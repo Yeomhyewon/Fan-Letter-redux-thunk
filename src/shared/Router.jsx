@@ -1,9 +1,9 @@
 import React from "react";
-import Detail from "pages/Detail";
+import Detail from "pages/Detail/Detail";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Main from "pages/Main";
-import Login from "pages/Login";
-import Profile from "pages/Profile";
+import Main from "pages/Main/Main";
+import Login from "pages/Login/Login";
+import Profile from "pages/Profile/Profile";
 import Layout from "components/Layout/Layout";
 import { useSelector } from "react-redux";
 

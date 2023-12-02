@@ -88,8 +88,7 @@ export const StMyPageProfile = styled.div`
 
 export const StMyPageNameBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 
   div {
@@ -98,7 +97,7 @@ export const StMyPageNameBox = styled.div`
     font-weight: bold;
   }
   p {
-    margin-top: 35px;
+    margin-top: 25px;
   }
 `;
 

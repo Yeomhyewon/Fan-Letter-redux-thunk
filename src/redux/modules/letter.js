@@ -147,6 +147,6 @@ const letterSlice = createSlice({
   },
 });
 
-export const { addLetter, deleteLetter, editLetter, setLetter } =
-  letterSlice.actions;
+// export const { addLetter, deleteLetter, editLetter, setLetter } =
+//   letterSlice.actions;
 export default letterSlice.reducer;

@@ -1,15 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-function Button({ eventHandler, children, $margin }) {
-  return (
-    <StBtn $margin={$margin} onClick={eventHandler}>
-      {children}
-    </StBtn>
-  );
-}
-
-const StBtn = styled.button`
+export const StBtn = styled.button`
   padding: 10px 25px;
   margin: ${(props) => props.$margin};
   border: none;
@@ -26,5 +17,3 @@ const StBtn = styled.button`
     border-bottom: 2px solid #5473797d;
   }
 `;
-
-export default Button;

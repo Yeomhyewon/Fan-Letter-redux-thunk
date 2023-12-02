@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "redux/modules/authSilce";
-import styled from "styled-components";
+import { StHeader } from "./styles";
 
 function Header() {
   const navigate = useNavigate();
@@ -45,24 +45,5 @@ function Header() {
     </div>
   );
 }
-
-const StHeader = styled.ul`
-  display: flex;
-  justify-content: space-around;
-
-  padding: 10px;
-  font-size: large;
-  a {
-    color: #435585;
-  }
-  & > li {
-    color: #435585;
-    transition: all 0.4s;
-    cursor: pointer;
-    &:hover {
-      color: #d8b4f8;
-    }
-  }
-`;
 
 export default Header;

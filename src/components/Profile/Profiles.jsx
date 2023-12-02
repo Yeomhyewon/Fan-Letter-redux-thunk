@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import {
   StMyAvatar,
   StMyPageContainer,
@@ -13,21 +12,26 @@ import { CiImageOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { editedProfile } from "redux/modules/authSilce";
+import { __editProfile, __getLetters } from "redux/modules/letter";
 
 function Profiles() {
   const dispatch = useDispatch();
-
+  const letters = useSelector((state) => state.letter.letters);
   const auth = useSelector((state) => state.auth);
-  // const avatar = auth.avatar;
+  console.log(letters);
   const nickname = auth.nickname;
-  const userId = auth.userId;
   const avatar = auth.avatar;
+  const userId = auth.userId;
   const [profileEdit, setProfileEdit] = useState(false);
-  const [changeAvatar, setChangeAvatar] = useState("");
+  const [changeAvatar, setChangeAvatar] = useState(avatar);
   const [changeAvatarImage, setChangeAvatarImage] = useState("");
   const [changeNickname, setChangeNickname] = useState(nickname);
 
-  console.log(avatar);
+  const usersLetterId = letters
+    .filter((i) => userId === i.userId)
+    .map((i) => i.id);
+  console.log(usersLetterId);
+
   const onChangeNicknameHandler = (e) => {
     setChangeNickname(e.target.value);
   };
@@ -36,14 +40,9 @@ function Profiles() {
     if (e.target.files[0]) {
       const file = e.target.files[0];
       setChangeAvatarImage(e.target.files[0]);
-      // let blob = new Blob([new ArrayBuffer(file)], { type: "image/png" });
 
-      const url = window.URL.createObjectURL(file); // blob:http://localhost:1234/28ff8746-94eb-4dbe-9d6c-2443b581dd30
-
+      const url = window.URL.createObjectURL(file);
       setChangeAvatar(url);
-    } else {
-      const defaultImage = "/assets/img/Avatar.png";
-      setChangeAvatar(defaultImage);
     }
   };
 
@@ -54,11 +53,6 @@ function Profiles() {
   const changeNicknameAndAvatarHandler = async () => {
     try {
       const accessToken = auth.accessToken;
-
-      // const changeProfile = {
-      //   avatar: changeAvatarImage,
-      //   nickname: `${changeNickname}`,
-      // };
 
       const response = await axios.patch(
         `${process.env.REACT_APP_API_URL}/profile`,
@@ -72,17 +66,33 @@ function Profiles() {
       );
       console.log("답변", response);
       const imageFile = response.data.avatar;
-      console.log(imageFile);
+
       dispatch(
         editedProfile({
           nickname: nickname && changeNickname,
           avatar: imageFile ? imageFile : avatar,
         })
       );
+
+      const changeddbLetterData = await Promise.all(
+        usersLetterId.map((i) => {
+          return axios.patch(
+            `${process.env.REACT_APP_SERVER_URL}/letters/${i}`,
+            {
+              nickname: nickname && changeNickname,
+              avatar: imageFile ? imageFile : avatar,
+            }
+          );
+        })
+      );
+
+      console.log(changeddbLetterData);
+      dispatch(__getLetters());
+
       alert("프로필 변경이 완료되었습니다😀");
       setProfileEdit(false);
     } catch (error) {
-      alert("프로필 변경에 실패했습니다.");
+      alert("프로필 변경에 실패했습니다😭");
       console.log(error);
     }
   };
@@ -102,7 +112,7 @@ function Profiles() {
             </StMyPageProfileHeader>
             <StMyPageProfileMain>
               <StMyPageProfile>
-                <StMyAvatar $src={avatar ?? changeAvatar}>
+                <StMyAvatar $src={changeAvatar}>
                   <label htmlFor="changeImg">
                     <CiImageOn size={29} />
                   </label>
@@ -139,6 +149,7 @@ function Profiles() {
               <StMyAvatar $src={avatar}></StMyAvatar>
               <StMyPageNameBox>
                 <div>{nickname}</div>
+                <p>ID : {userId}</p>
               </StMyPageNameBox>
             </StMyPageProfile>
           </StMyPageProfileMain>

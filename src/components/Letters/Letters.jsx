@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { logout } from "redux/modules/authSilce";
 import { useDispatch, useSelector } from "react-redux";
+import { Avatar, LetterCard, TextOverFlow } from "./styles";
 
 function Letters({
   letter,
@@ -15,12 +15,10 @@ function Letters({
   navColor,
   usersId,
 }) {
+  console.log(nickname);
   const dispatch = useDispatch();
   const naivgate = useNavigate();
   const auth = useSelector((state) => state.auth);
-  const userNickname = auth.nickname;
-  const userId = auth.userId;
-  // const userImage = auth.avatar;
 
   const checkMemberInformation = async () => {
     try {
@@ -46,42 +44,12 @@ function Letters({
         <div onClick={checkMemberInformation} to={`/detail/${letter.id}`}>
           <Avatar width="70px" src={avatar} />
           <p>{createdAt}</p>
-          <p>{usersId === userId ? userNickname : nickname}</p>
+          <p>{nickname}</p>
           <TextOverFlow $bordercolor={navColor}>{content}</TextOverFlow>
         </div>
       </LetterCard>
     </ul>
   );
 }
-
-const LetterCard = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  width: 500px;
-  margin: 20px auto;
-  padding: 10px;
-
-  border: 3px solid ${(props) => props.$bordercolor};
-  cursor: pointer;
-  border-radius: 15px;
-  transition: all 0.5s;
-
-  &:hover {
-    transform: scale3d(1.05, 1.05, 1.05);
-  }
-`;
-
-const Avatar = styled.img`
-  border-radius: 100%;
-`;
-
-const TextOverFlow = styled.p`
-  padding: 5px;
-  background-color: ${(props) => props.$bordercolor};
-  border-radius: 10px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-`;
 
 export default Letters;

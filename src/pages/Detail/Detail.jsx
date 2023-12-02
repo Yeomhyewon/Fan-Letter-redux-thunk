@@ -2,19 +2,36 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { __deleteLetter, __editLetter } from "redux/modules/letter";
-import Button from "components/Button";
-import styled from "styled-components";
+import Button from "components/Button/Button";
 import axios from "axios";
 import { logout } from "redux/modules/authSilce";
+import {
+  DateButton,
+  LetterContainer,
+  LetterImgName,
+  NicknName,
+  StContent,
+  StHeight,
+  StImg,
+  StWritedTo,
+  Textarea,
+} from "./styles";
 
 function Detail() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-
-  const { isLoding, error, letters } = useSelector((state) => state.letter);
   let { id } = useParams();
 
-  const avatar = letters.avatar;
+  // 필터링 된 팬레터
+
+  // 팬레터들 중 하나 필터링
+  const { isLoding, error, letters } = useSelector((state) => state.letter);
+  const [letterDetail, setLetterDetail] = useState(letters);
+  const filterLetter = letterDetail?.filter((L) => {
+    return L.id === id;
+  });
+  const [editClicked, setEditClicked] = useState(false);
+  const [editContent, setEditContent] = useState(filterLetter[0]?.content);
 
   useEffect(() => {
     const checkMemberInformation = async () => {
@@ -43,24 +60,13 @@ function Detail() {
     }
   }, [isLoding, letters]);
   const userId = auth.userId;
-  const nickname = auth.nickname;
 
   const navigator = useNavigate();
 
   //뒤로 가기
   const clickHome = () => {
-    navigator(-1);
+    navigator("/");
   };
-
-  // 필터링 된 팬레터
-  const [letterDetail, setLetterDetail] = useState(letters);
-
-  // 팬레터들 중 하나 필터링
-  const filterLetter = letterDetail?.filter((L) => {
-    return L.id === id;
-  });
-
-  // console.log(filterLetter);
 
   // 삭제 기능(확인 메세지-> 삭제 후 홈화면 이동)
   const letterDelHandler = (id) => {
@@ -70,9 +76,6 @@ function Detail() {
     }
   };
   // 수정 기능
-  const [editClicked, setEditClicked] = useState(false);
-  const [editContent, setEditContent] = useState(filterLetter[0]?.content);
-  // console.log(editContent);
 
   // 누르면 textarea 나오게
   const clickedTextArea = () => {
@@ -90,9 +93,8 @@ function Detail() {
       setEditClicked(true);
       return false;
     }
-
+    alert("수정이 완료되었습니다😀");
     dispatch(__editLetter({ id: id, letter: editContent }));
-    // dispatch(editLetter(letter));
     navigator(-1);
   };
 
@@ -123,9 +125,7 @@ function Detail() {
                   <LetterContainer>
                     <LetterImgName>
                       <StImg width="100px" src={letter.avatar} />
-                      <NicknName>
-                        {userId === letter.userId ? nickname : letter.nickname}
-                      </NicknName>
+                      <NicknName>{letter.nickname}</NicknName>
                     </LetterImgName>
                     <StWritedTo>TO : {letter.writedTo}</StWritedTo>
                     <div>
@@ -146,7 +146,6 @@ function Detail() {
               );
             })
           : filterLetter.map((letter) => {
-              console.log(letter);
               return (
                 <div key={letter.id} id={letter.id}>
                   <div>
@@ -160,9 +159,7 @@ function Detail() {
                   <LetterContainer>
                     <LetterImgName>
                       <StImg width="100px" src={letter.avatar} />
-                      <NicknName>
-                        {userId === letter.userId ? nickname : letter.nickname}
-                      </NicknName>
+                      <NicknName>{letter.nickname}</NicknName>
                     </LetterImgName>
                     <StWritedTo>TO : {letter.writedTo}</StWritedTo>
                     <div>
@@ -202,66 +199,4 @@ function Detail() {
   );
 }
 
-const StImg = styled.img`
-  border-radius: 100%;
-`;
-
-const LetterImgName = styled.div`
-  display: flex;
-  align-items: center;
-
-  font-weight: bold;
-`;
-const NicknName = styled.p`
-  margin-left: 10px;
-`;
-
-const LetterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: linear-gradient(315deg, #eee29f76, #9adbe87e, #f4a6d77a);
-  border-radius: 20px;
-
-  padding: 30px;
-  margin: 160px 50px;
-
-  font-size: large;
-`;
-
-const StWritedTo = styled.p`
-  margin: 10px 0px;
-
-  font-weight: bold;
-`;
-
-const StContent = styled.p`
-  background: linear-gradient(315deg, #eee29f76, #9adbe87e, #f4a6d77a);
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-`;
-
-const DateButton = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 10px;
-`;
-
-const Textarea = styled.textarea`
-  padding: 10px;
-  width: 100%;
-  border-radius: 10px;
-  background: linear-gradient(315deg, #eee29f76, #9adbe87e, #f4a6d77a);
-  border: none;
-  resize: none;
-  outline: none;
-
-  font-size: large;
-`;
-
-const StHeight = styled.div`
-  height: 100vh;
-`;
 export default Detail;
