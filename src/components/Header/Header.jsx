@@ -9,6 +9,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const userId = auth.userId;
   const clickLogoutHandler = () => {
     alert("로그아웃 되었습니다.");
     navigate("/login");
@@ -24,7 +25,7 @@ function Header() {
         },
       });
       console.log(response);
-      navigate("/profile");
+      navigate(`/profile/${userId}`);
     } catch (error) {
       alert("토큰이 만료되었습니다. 잠시 후에 로그아웃됩니다.");
       dispatch(logout());

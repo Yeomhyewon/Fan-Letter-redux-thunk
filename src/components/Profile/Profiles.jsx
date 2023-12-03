@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StMyAvatar,
   StMyPageContainer,
@@ -10,22 +10,41 @@ import {
 } from "./styles";
 import { CiImageOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { editedProfile } from "redux/modules/authSilce";
+import { editedProfile, logout } from "redux/modules/authSilce";
 import { __getLetters } from "redux/modules/letter";
 import jsonInstance from "api/jsonServerApi";
 import { serverInstance } from "api/apiServer";
+import { useParams } from "react-router-dom";
 
 function Profiles() {
   const dispatch = useDispatch();
+  const { userId } = useParams();
   const letters = useSelector((state) => state.letter.letters);
   const auth = useSelector((state) => state.auth);
   const nickname = auth.nickname;
   const avatar = auth.avatar;
-  const userId = auth.userId;
   const [profileEdit, setProfileEdit] = useState(false);
   const [changeAvatar, setChangeAvatar] = useState(avatar);
   const [changeAvatarImage, setChangeAvatarImage] = useState("");
   const [changeNickname, setChangeNickname] = useState(nickname);
+
+  useEffect(() => {
+    const checkMemberInformation = async () => {
+      try {
+        const response = await serverInstance.get(`/user`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        });
+        console.log(response);
+      } catch (error) {
+        alert("토큰이 만료되었습니다. 잠시 후에 로그아웃됩니다.");
+        dispatch(logout());
+      }
+    };
+    checkMemberInformation();
+  }, [auth.accessToken, dispatch]);
 
   const usersLetterId = letters
     .filter((i) => userId === i.userId)
