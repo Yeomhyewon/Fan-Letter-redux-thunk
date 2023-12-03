@@ -18,6 +18,7 @@ export const LetterCard = styled.div`
 `;
 
 export const Avatar = styled.img`
+  height: 70px;
   border-radius: 100%;
 `;
 

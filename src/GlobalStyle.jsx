@@ -3,12 +3,6 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 
 @font-face {
-    font-family: 'omyu_pretty';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'TAEBAEKmilkyway';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/TAEBAEKmilkyway.woff2') format('woff2');
     font-weight: normal;
@@ -66,7 +60,7 @@ a {
 input, button, textarea{
     border: none;
     background: inherit;
-	outline: none;
+		outline: none;
 } 
 * { 
     box-sizing: border-box;
