@@ -99,7 +99,7 @@ const Main = () => {
       };
       if (content === "") {
         alert("내용을 입력해주세요.");
-        e.preventDefault();
+
         return false;
       } else if (content.length > 200) {
         alert("내용은 최대 200자까지 가능힙니다.");
@@ -114,7 +114,6 @@ const Main = () => {
     }
   };
 
-  // console.log(filterLetter);
   // 클릭 시 색 바뀌게, 멤버별 펜레터만 보이게
   const clickMColorChange = (color) => {
     setSelectMember(getMemberName(color));

@@ -27,11 +27,11 @@ function Detail() {
   // 팬레터들 중 하나 필터링
   const { isLoding, error, letters } = useSelector((state) => state.letter);
   const [letterDetail, setLetterDetail] = useState(letters);
-  const filterLetter = letterDetail?.filter((L) => {
+  const selectedLetter = letterDetail?.find((L) => {
     return L.id === id;
   });
   const [editClicked, setEditClicked] = useState(false);
-  const [editContent, setEditContent] = useState(filterLetter[0]?.content);
+  const [editContent, setEditContent] = useState(selectedLetter.content);
 
   useEffect(() => {
     const checkMemberInformation = async () => {
@@ -69,7 +69,7 @@ function Detail() {
   };
 
   // 삭제 기능(확인 메세지-> 삭제 후 홈화면 이동)
-  const letterDelHandler = (id) => {
+  const letterDeleteHandler = (id) => {
     if (window.confirm("정말 삭제하시겠습니까?") === true) {
       dispatch(__deleteLetter(id));
       navigator(-1);
@@ -78,7 +78,7 @@ function Detail() {
   // 수정 기능
 
   // 누르면 textarea 나오게
-  const clickedTextArea = () => {
+  const clickedSwitchTextArea = () => {
     setEditClicked(true);
   };
 
@@ -87,8 +87,8 @@ function Detail() {
     setEditContent(e.target.value);
   };
   //완료 누르면 적용
-  const submitEditContent = () => {
-    if (filterLetter[0].content === editContent) {
+  const submitEditContentHanlder = () => {
+    if (selectedLetter[0].content === editContent) {
       alert("수정된 부분이 없습니다.");
       setEditClicked(true);
       return false;
@@ -110,90 +110,78 @@ function Detail() {
     // 삼항연산자 사용 true면 textarea나오고 완료버튼 나오게, false면 수정, 삭제버튼 나오게
     <>
       <StHeight>
-        {editClicked
-          ? filterLetter.map((letter) => {
-              return (
-                <div key={letter.id} id={letter.id}>
-                  <div>
-                    <Button
-                      eventHandler={clickHome}
-                      $margin="50px 0px 0px 50px"
-                    >
-                      HOME
-                    </Button>
-                  </div>
-                  <LetterContainer>
-                    <LetterImgName>
-                      <StImg width="100px" src={letter.avatar} />
-                      <NicknName>{letter.nickname}</NicknName>
-                    </LetterImgName>
-                    <StWritedTo>TO : {letter.writedTo}</StWritedTo>
-                    <div>
-                      <Textarea
-                        rows={4}
-                        value={editContent}
-                        onChange={onChangeEdit}
-                      />
-                    </div>
-                    <DateButton>
-                      <p>{letter.createdAt}</p>
-                      <div>
-                        <Button eventHandler={submitEditContent}>완료</Button>
-                      </div>
-                    </DateButton>
-                  </LetterContainer>
+        {editClicked ? (
+          <div key={selectedLetter.id} id={selectedLetter.id}>
+            <div>
+              <Button eventHandler={clickHome} $margin="50px 0px 0px 50px">
+                HOME
+              </Button>
+            </div>
+            <LetterContainer>
+              <LetterImgName>
+                <StImg width="100px" src={selectedLetter.avatar} />
+                <NicknName>{selectedLetter.nickname}</NicknName>
+              </LetterImgName>
+              <StWritedTo>TO : {selectedLetter.writedTo}</StWritedTo>
+              <div>
+                <Textarea
+                  rows={4}
+                  value={editContent}
+                  onChange={onChangeEdit}
+                />
+              </div>
+              <DateButton>
+                <p>{selectedLetter.createdAt}</p>
+                <div>
+                  <Button eventHandler={submitEditContentHanlder}>완료</Button>
                 </div>
-              );
-            })
-          : filterLetter.map((letter) => {
-              return (
-                <div key={letter.id} id={letter.id}>
-                  <div>
-                    <Button
-                      $margin="50px 0px 0px 50px"
-                      eventHandler={clickHome}
-                    >
-                      HOME
-                    </Button>
-                  </div>
-                  <LetterContainer>
-                    <LetterImgName>
-                      <StImg width="100px" src={letter.avatar} />
-                      <NicknName>{letter.nickname}</NicknName>
-                    </LetterImgName>
-                    <StWritedTo>TO : {letter.writedTo}</StWritedTo>
-                    <div>
-                      <StContent>{letter.content}</StContent>
-                    </div>
-                    <DateButton>
-                      <p>{letter.createdAt}</p>
-                      <div>
-                        {userId === letter.userId ? (
-                          <>
-                            <Button
-                              $margin="6px"
-                              eventHandler={clickedTextArea}
-                            >
-                              수정
-                            </Button>
-                            <Button
-                              $margin="6px"
-                              eventHandler={() => {
-                                letterDelHandler(letter.id);
-                              }}
-                            >
-                              삭제
-                            </Button>
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </DateButton>
-                  </LetterContainer>
+              </DateButton>
+            </LetterContainer>
+          </div>
+        ) : (
+          <div key={selectedLetter.id} id={selectedLetter.id}>
+            <div>
+              <Button $margin="50px 0px 0px 50px" eventHandler={clickHome}>
+                HOME
+              </Button>
+            </div>
+            <LetterContainer>
+              <LetterImgName>
+                <StImg width="100px" src={selectedLetter.avatar} />
+                <NicknName>{selectedLetter.nickname}</NicknName>
+              </LetterImgName>
+              <StWritedTo>TO : {selectedLetter.writedTo}</StWritedTo>
+              <div>
+                <StContent>{selectedLetter.content}</StContent>
+              </div>
+              <DateButton>
+                <p>{selectedLetter.createdAt}</p>
+                <div>
+                  {userId === selectedLetter.userId ? (
+                    <>
+                      <Button
+                        $margin="6px"
+                        eventHandler={clickedSwitchTextArea}
+                      >
+                        수정
+                      </Button>
+                      <Button
+                        $margin="6px"
+                        eventHandler={() => {
+                          letterDeleteHandler(selectedLetter.id);
+                        }}
+                      >
+                        삭제
+                      </Button>
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
-              );
-            })}
+              </DateButton>
+            </LetterContainer>
+          </div>
+        )}
       </StHeight>
     </>
   );

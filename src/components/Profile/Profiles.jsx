@@ -12,13 +12,12 @@ import { CiImageOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { editedProfile } from "redux/modules/authSilce";
-import { __editProfile, __getLetters } from "redux/modules/letter";
+import { __getLetters } from "redux/modules/letter";
 
 function Profiles() {
   const dispatch = useDispatch();
   const letters = useSelector((state) => state.letter.letters);
   const auth = useSelector((state) => state.auth);
-  console.log(letters);
   const nickname = auth.nickname;
   const avatar = auth.avatar;
   const userId = auth.userId;
