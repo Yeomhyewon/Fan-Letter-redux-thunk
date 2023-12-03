@@ -44,6 +44,8 @@ function Login() {
       };
       const respones = await serverInstance.post(`/register`, newUser);
       alert("가입되었습니다!😀");
+      setId("");
+      setPw("");
       setLoginSwitch(true);
       console.log(respones.data);
     } catch (error) {

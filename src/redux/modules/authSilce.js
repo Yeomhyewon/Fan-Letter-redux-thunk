@@ -13,8 +13,6 @@ const authSilce = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      console.log(action.payload);
-
       localStorage.setItem("accessToken", action.payload.accessToken);
       localStorage.setItem("userId", action.payload.userId);
       localStorage.setItem("avatar", action.payload.avatar);
