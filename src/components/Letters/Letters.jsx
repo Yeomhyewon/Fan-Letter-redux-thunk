@@ -13,9 +13,7 @@ function Letters({
   avatar,
   content,
   navColor,
-  usersId,
 }) {
-  console.log(nickname);
   const dispatch = useDispatch();
   const naivgate = useNavigate();
   const auth = useSelector((state) => state.auth);

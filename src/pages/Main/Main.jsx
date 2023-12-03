@@ -4,9 +4,9 @@ import Letters from "components/Letters/Letters";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { __addLetter } from "redux/modules/letter";
-import axios from "axios";
 import { logout } from "redux/modules/authSilce";
 import { LetterNone, StDiv, StImg, StList } from "./styles";
+import { serverInstance } from "api/apiServer";
 
 // 색별로 나눔
 const memberColor = [
@@ -77,15 +77,12 @@ const Main = () => {
   const clickNewLetterHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/user`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.accessToken}`,
-          },
-        }
-      );
+      const response = await serverInstance.get(`/user`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
       console.log(response);
 
       const newLetter = {

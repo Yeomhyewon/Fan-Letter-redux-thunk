@@ -10,9 +10,10 @@ import {
 } from "./styles";
 import { CiImageOn } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { editedProfile } from "redux/modules/authSilce";
 import { __getLetters } from "redux/modules/letter";
+import jsonInstance from "api/jsonServerApi";
+import { serverInstance } from "api/apiServer";
 
 function Profiles() {
   const dispatch = useDispatch();
@@ -29,7 +30,6 @@ function Profiles() {
   const usersLetterId = letters
     .filter((i) => userId === i.userId)
     .map((i) => i.id);
-  console.log(usersLetterId);
 
   const onChangeNicknameHandler = (e) => {
     setChangeNickname(e.target.value);
@@ -53,16 +53,12 @@ function Profiles() {
     try {
       const accessToken = auth.accessToken;
 
-      const response = await axios.patch(
-        `${process.env.REACT_APP_API_URL}/profile`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await serverInstance.patch(`/profile`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       console.log("답변", response);
       const imageFile = response.data.avatar;
 
@@ -75,17 +71,14 @@ function Profiles() {
 
       const changeddbLetterData = await Promise.all(
         usersLetterId.map((i) => {
-          return axios.patch(
-            `${process.env.REACT_APP_SERVER_URL}/letters/${i}`,
-            {
-              nickname: nickname && changeNickname,
-              avatar: imageFile ? imageFile : avatar,
-            }
-          );
+          return jsonInstance.patch(`/letters/${i}`, {
+            nickname: nickname && changeNickname,
+            avatar: imageFile ? imageFile : avatar,
+          });
         })
       );
 
-      console.log(changeddbLetterData);
+      console.log("jsonServer 변경 완료", changeddbLetterData);
       dispatch(__getLetters());
 
       alert("프로필 변경이 완료되었습니다😀");

@@ -11,7 +11,7 @@
     },
     {
       "createdAt": "2023-12-02T07:52:03.640Z",
-      "nickname": "삼의맹세aaa",
+      "nickname": "삼의맹세",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
       "content": "아하 이름이 다르군?",
       "writedTo": "효정",
@@ -29,7 +29,7 @@
     },
     {
       "createdAt": "2023-12-02T09:45:46.913Z",
-      "nickname": "삼의맹세aaa",
+      "nickname": "삼의맹세",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
       "content": "사진 나와라",
       "writedTo": "효정",
@@ -38,7 +38,7 @@
     },
     {
       "createdAt": "2023-12-02T12:50:00.781Z",
-      "nickname": "삼의맹세aaa",
+      "nickname": "삼의맹세",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
       "content": "댓글 달면 사진 남아있삼",
       "writedTo": "효정",
@@ -47,11 +47,29 @@
     },
     {
       "createdAt": "2023-12-02T16:08:23.528Z",
-      "nickname": "삼의맹세aaa",
+      "nickname": "삼의맹세",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
       "content": "안녕하세요",
       "writedTo": "효정",
       "id": "a5cb2d7f-dacc-4229-ad0f-3da329402584",
+      "userId": "dkshk"
+    },
+    {
+      "createdAt": "2023-12-03T09:57:20.532Z",
+      "nickname": "삼의맹세",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
+      "content": "ㅁㅁㅁㅁㅁㅁㅁㅁ",
+      "writedTo": "효정",
+      "id": "190e31cc-c156-4c39-8536-16012ce81942",
+      "userId": "dkshk"
+    },
+    {
+      "createdAt": "2023-12-03T11:27:56.929Z",
+      "nickname": "삼의맹세",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/ce283694-c795-49a7-85f7-3a7f37eca04b.jpg",
+      "content": "aa",
+      "writedTo": "효정",
+      "id": "659b08e3-64c8-4d3e-8b59-1df03113ebe7",
       "userId": "dkshk"
     }
   ]

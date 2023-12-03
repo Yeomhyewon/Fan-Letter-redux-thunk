@@ -1,9 +1,9 @@
-import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "redux/modules/authSilce";
 import { StHeader } from "./styles";
+import { serverInstance } from "api/apiServer";
 
 function Header() {
   const navigate = useNavigate();
@@ -17,15 +17,12 @@ function Header() {
 
   const checkMemberInformation = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/user`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.accessToken}`,
-          },
-        }
-      );
+      const response = await serverInstance.get(`/user`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.accessToken}`,
+        },
+      });
       console.log(response);
       navigate("/profile");
     } catch (error) {

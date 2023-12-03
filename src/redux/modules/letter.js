@@ -1,4 +1,4 @@
-import axios from "axios";
+import jsonInstance from "api/jsonServerApi";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -13,8 +13,8 @@ export const __getLetters = createAsyncThunk(
   "getLetters",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/letters?_sort=createdAt&_order=desc`
+      const response = await jsonInstance.get(
+        `/letters?_sort=createdAt&_order=desc`
       );
       console.log("response", response.data);
       return thunkAPI.fulfillWithValue(response.data);
@@ -29,10 +29,7 @@ export const __addLetter = createAsyncThunk(
   "addLetter",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/letters`,
-        payload
-      );
+      const response = await jsonInstance.post(`/letters`, payload);
       console.log("response", response);
       thunkAPI.dispatch(__getLetters());
       return thunkAPI.fulfillWithValue(response.data);
@@ -46,11 +43,8 @@ export const __addLetter = createAsyncThunk(
 export const __deleteLetter = createAsyncThunk(
   "deleteLetter",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_SERVER_URL}/letters/${payload}`
-      );
+      const response = await jsonInstance.delete(`/letters/${payload}`);
       thunkAPI.dispatch(__getLetters());
       console.log("response", response.data);
       return thunkAPI.fulfillWithValue(response.data);
@@ -64,13 +58,10 @@ export const __deleteLetter = createAsyncThunk(
 export const __editLetter = createAsyncThunk(
   "editLetter",
   async (payload, thunkAPI) => {
-    console.log(payload);
-
     try {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_SERVER_URL}/letters/${payload.id}`,
-        { content: payload.letter }
-      );
+      const response = await jsonInstance.patch(`/letters/${payload.id}`, {
+        content: payload.letter,
+      });
       console.log("response", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
@@ -147,6 +138,4 @@ const letterSlice = createSlice({
   },
 });
 
-// export const { addLetter, deleteLetter, editLetter, setLetter } =
-//   letterSlice.actions;
 export default letterSlice.reducer;

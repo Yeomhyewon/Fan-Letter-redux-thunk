@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "redux/modules/authSilce";
 import { StInput, StLoginBox, StLoginBtnBox, StSwitchBtn } from "./styles";
+import { serverInstance } from "api/apiServer";
 
 function Login() {
   const navigate = useNavigate();
@@ -24,10 +24,7 @@ function Login() {
         id,
         password: pw,
       };
-      const reponse = await axios.post(
-        `${process.env.REACT_APP_API_URL}/login`,
-        user
-      );
+      const reponse = await serverInstance.post(`/login`, user);
       alert("로그인 되었습니다.");
       dispatch(login(reponse.data));
       navigate("/");
@@ -45,10 +42,7 @@ function Login() {
         password: pw,
         nickname,
       };
-      const respones = await axios.post(
-        `${process.env.REACT_APP_API_URL}/register`,
-        newUser
-      );
+      const respones = await serverInstance.post(`/register`, newUser);
       alert("가입되었습니다!😀");
       setLoginSwitch(true);
       console.log(respones.data);

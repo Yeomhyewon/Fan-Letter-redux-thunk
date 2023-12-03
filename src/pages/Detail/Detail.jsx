@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { __deleteLetter, __editLetter } from "redux/modules/letter";
 import Button from "components/Button/Button";
-import axios from "axios";
 import { logout } from "redux/modules/authSilce";
 import {
   DateButton,
@@ -16,6 +15,7 @@ import {
   StWritedTo,
   Textarea,
 } from "./styles";
+import { serverInstance } from "api/apiServer";
 
 function Detail() {
   const dispatch = useDispatch();
@@ -36,15 +36,12 @@ function Detail() {
   useEffect(() => {
     const checkMemberInformation = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/user`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${auth.accessToken}`,
-            },
-          }
-        );
+        const response = await serverInstance.get(`/user`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
+        });
         console.log(response);
       } catch (error) {
         alert("토큰이 만료되었습니다. 잠시 후에 로그아웃됩니다.");
@@ -88,7 +85,7 @@ function Detail() {
   };
   //완료 누르면 적용
   const submitEditContentHanlder = () => {
-    if (selectedLetter[0].content === editContent) {
+    if (selectedLetter.content === editContent) {
       alert("수정된 부분이 없습니다.");
       setEditClicked(true);
       return false;

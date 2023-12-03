@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "../Button/Button";
-import styled from "styled-components";
 import { useSelector } from "react-redux";
 import {
   Content,
