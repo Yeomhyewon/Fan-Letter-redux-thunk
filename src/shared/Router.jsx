@@ -17,13 +17,15 @@ function Router() {
             <Route path="/" element={<Main />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/profile/:userId" element={<Profile />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
           </Route>
         </Routes>
       ) : (
         <>
-          <Navigate replace to={"/login"} />
+          <Navigate replace to="/login" />
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate replace to="/login" />} />
           </Routes>
         </>
       )}
