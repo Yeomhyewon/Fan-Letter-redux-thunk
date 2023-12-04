@@ -4,20 +4,6 @@ export const serverInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-export const checkToken = async () => {
-  try {
-    await axios.get(process.env.REACT_APP_API_URL + "/user", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    alert("토큰이 만료되었습니다. 잠시 후에 로그아웃 됩니다.");
-  }
-};
-
 serverInstance.interceptors.request.use(
   //요청을 보내기 전 수행되는 함수
   function (config) {
