@@ -24,13 +24,13 @@ function Login() {
         id,
         password: pw,
       };
-      const reponse = await serverInstance.post(`/login`, user);
+      const response = await serverInstance.post(`/login`, user);
       alert("로그인 되었습니다.");
-      dispatch(login(reponse.data));
+      dispatch(login(response.data));
       navigate("/");
     } catch (error) {
-      console.log(error);
-      alert("존재하지 않는 계정입니다.");
+      console.log(error.response.data.message);
+      alert(error.response.data.message);
     }
   };
 
@@ -50,7 +50,7 @@ function Login() {
       console.log(respones.data);
     } catch (error) {
       console.log(error);
-      alert("이미 가입된 계정입니다.");
+      alert(error.response.data.message);
     }
   };
 
