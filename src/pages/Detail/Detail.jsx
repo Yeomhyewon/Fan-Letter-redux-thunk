@@ -128,7 +128,22 @@ function Detail() {
                 />
               </div>
               <DateButton>
-                <p>{selectedLetter.createdAt}</p>
+                <p>
+                  {
+                    <time>
+                      {new Date(selectedLetter.createdAt).toLocaleDateString(
+                        "ko",
+                        {
+                          year: "2-digit",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        }
+                      )}
+                    </time>
+                  }
+                </p>
                 <div>
                   <Button eventHandler={submitEditContentHanlder}>완료</Button>
                 </div>
@@ -152,7 +167,20 @@ function Detail() {
                 <StContent>{selectedLetter.content}</StContent>
               </div>
               <DateButton>
-                <p>{selectedLetter.createdAt}</p>
+                <p>
+                  <time>
+                    {new Date(selectedLetter.createdAt).toLocaleDateString(
+                      "ko",
+                      {
+                        year: "2-digit",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      }
+                    )}
+                  </time>
+                </p>
                 <div>
                   {userId === selectedLetter.userId ? (
                     <>

@@ -5,15 +5,7 @@ import { logout } from "redux/modules/authSilce";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, LetterCard, TextOverFlow } from "./styles";
 
-function Letters({
-  letter,
-  id,
-  createdAt,
-  nickname,
-  avatar,
-  content,
-  navColor,
-}) {
+function Letters({ letter, navColor }) {
   const dispatch = useDispatch();
   const naivgate = useNavigate();
   const auth = useSelector((state) => state.auth);
@@ -37,13 +29,23 @@ function Letters({
     }
   };
   return (
-    <ul id={id} key={id}>
+    <ul id={letter.id} key={letter.id}>
       <LetterCard $bordercolor={navColor}>
         <div onClick={checkMemberInformation} to={`/detail/${letter.id}`}>
-          <Avatar width="70px" src={avatar} />
-          <p>{createdAt}</p>
-          <p>{nickname}</p>
-          <TextOverFlow $bordercolor={navColor}>{content}</TextOverFlow>
+          <Avatar width="70px" src={letter.avatar} />
+          <p>
+            <time>
+              {new Date(letter.createdAt).toLocaleDateString("ko", {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </time>
+          </p>
+          <p>{letter.nickname}</p>
+          <TextOverFlow $bordercolor={navColor}>{letter.content}</TextOverFlow>
         </div>
       </LetterCard>
     </ul>

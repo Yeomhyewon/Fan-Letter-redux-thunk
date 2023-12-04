@@ -172,17 +172,7 @@ const Main = () => {
         ) : (
           filterLetter?.map((letter) => {
             return (
-              <Letters
-                navColor={navColor}
-                letter={letter}
-                id={letter.id}
-                avatar={letter.avatar}
-                createdAt={letter.createdAt}
-                nickname={letter.nickname}
-                content={letter.content}
-                key={letter.id}
-                usersId={letter.userId}
-              />
+              <Letters navColor={navColor} letter={letter} key={letter.id} />
             );
           })
         )}
